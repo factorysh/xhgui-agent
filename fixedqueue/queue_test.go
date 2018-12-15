@@ -13,7 +13,6 @@ func TestQueue(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		queue.Push(i)
 	}
-	fmt.Println(queue.queue, queue.start, queue.end)
 	assert.Equal(t, 3, queue.Length())
 	a1 := queue.Pop()
 	assert.NotNil(t, a1)
