@@ -11,11 +11,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7fb51688eadf38272411852d7a2b3538c7caff53309abee6c0964a83c00fe69e"
+  digest = "1:78102ee4d536347316bc42e818340cc50902e45dbd7fdd524c5a1fc0cb07b588"
   name = "github.com/globalsign/mgo"
   packages = [
+    ".",
     "bson",
     "internal/json",
+    "internal/sasl",
+    "internal/scram",
   ]
   pruneopts = "UT"
   revision = "eeefdecb41b842af6dc652aaea4026e8403e62df"
@@ -75,6 +78,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/globalsign/mgo",
     "github.com/globalsign/mgo/bson",
     "github.com/sirupsen/logrus",
     "github.com/stretchr/testify/assert",

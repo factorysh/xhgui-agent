@@ -1,22 +1,54 @@
 package agent
 
 import (
+	"context"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"time"
 
 	"github.com/factorysh/xhgui-agent/fixedqueue"
+	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 	log "github.com/sirupsen/logrus"
 )
 
 type Agent struct {
-	queue *fixedqueue.Queue
+	queue    *fixedqueue.Queue
+	mongoURL string
+	database string
+	mongodb  *mgo.Session
 }
 
-func New(queueSize int) *Agent {
-	return &Agent{
-		queue: fixedqueue.New(queueSize),
+func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
+	p, err := url.Parse(mongoURL)
+	if err != nil {
+		return nil, err
 	}
+	agent := &Agent{
+		queue:    fixedqueue.New(queueSize),
+		mongoURL: mongoURL,
+		database: p.Path,
+	}
+	go func() {
+		var err error
+		for {
+			if agent.mongodb == nil {
+				agent.mongodb, err = mgo.Dial(mongoURL)
+				if err != nil {
+					log.WithError(err).WithField("url", mongoURL).Error("Can't dial mongo")
+					time.Sleep(10 * time.Second)
+					continue
+				}
+			}
+			doc := agent.queue.BlPop()
+			err = agent.mongodb.DB(agent.database).C("plop").Insert(doc)
+			if err != nil {
+				log.WithError(err).WithField("document", doc).Error("Insert error")
+			}
+		}
+	}()
+	return agent, nil
 }
 
 // Json2Bson convert a JSON document to a BSON document
