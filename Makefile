@@ -6,3 +6,7 @@ bin:
 
 vendor:
 	dep ensure
+
+test: vendor
+	go test -v github.com/factorysh/xhgui-agent/fixedqueue
+	go test -v github.com/factorysh/xhgui-agent/agent
