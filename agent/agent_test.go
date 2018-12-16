@@ -1,4 +1,4 @@
-package main
+package agent
 
 import (
 	"fmt"
@@ -19,5 +19,4 @@ func TestJson2Bson(t *testing.T) {
 	assert.NoError(t, err)
 	fmt.Println(out)
 	ioutil.WriteFile("debug.bson", out, 0640)
-	assert.Fail(t, "oups")
 }
