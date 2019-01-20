@@ -13,6 +13,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+//Agent for xhgui
 type Agent struct {
 	queue    *fixedqueue.Queue
 	mongoURL string
@@ -20,6 +21,7 @@ type Agent struct {
 	mongodb  *mgo.Session
 }
 
+// New Agent
 func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 	p, err := url.Parse(mongoURL)
 	if err != nil {
@@ -51,8 +53,8 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 	return agent, nil
 }
 
-// Json2Bson convert a JSON document to a BSON document
-func Json2Bson(in []byte) (out []byte, err error) {
+// JSON2Bson convert a JSON document to a BSON document
+func JSON2Bson(in []byte) (out []byte, err error) {
 	var trace interface{}
 	err = bson.UnmarshalJSON(in, &trace)
 	if err != nil {
@@ -72,7 +74,7 @@ func (a *Agent) Handle(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		w.WriteHeader(500)
 	}
-	out, err := Json2Bson(body)
+	out, err := JSON2Bson(body)
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(500)

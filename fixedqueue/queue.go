@@ -2,12 +2,14 @@ package fixedqueue
 
 import "sync"
 
+// Queue of things to do
 type Queue struct {
 	channel chan interface{}
 	size    int
 	lock    sync.Mutex
 }
 
+// New Queue
 func New(size int) *Queue {
 	return &Queue{
 		channel: make(chan interface{}, size),
@@ -15,6 +17,7 @@ func New(size int) *Queue {
 	}
 }
 
+//Push an element
 func (q *Queue) Push(elem interface{}) {
 	q.lock.Lock()
 	defer q.lock.Unlock()
@@ -25,6 +28,7 @@ func (q *Queue) Push(elem interface{}) {
 	q.channel <- elem
 }
 
+//Pop and element
 func (q *Queue) Pop() interface{} {
 	q.lock.Lock()
 	defer q.lock.Unlock()
@@ -34,10 +38,12 @@ func (q *Queue) Pop() interface{} {
 	return <-q.channel
 }
 
+//BlPop blocking pop
 func (q *Queue) BlPop() interface{} {
 	return <-q.channel
 }
 
+//Length of the queue
 func (q *Queue) Length() int {
 	return len(q.channel)
 }
