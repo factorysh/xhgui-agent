@@ -17,6 +17,9 @@ docker-build:
 		bearstech/golang-dep \
 		make
 
+docker-image:
+	docker build -t xhgui-agent .
+
 test: vendor
 	go test -v github.com/factorysh/xhgui-agent/fixedqueue
 	go test -v github.com/factorysh/xhgui-agent/agent
