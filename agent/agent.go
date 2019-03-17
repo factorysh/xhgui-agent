@@ -27,6 +27,12 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.WithFields(log.Fields{
+		"mongodb_host":     p.Hostname,
+		"mongodb_user":     p.User,
+		"mongodb_database": p.Path,
+		"queue_size":       queueSize,
+	}).Info("Start agent")
 	agent := &Agent{
 		queue:    fixedqueue.New(queueSize),
 		mongoURL: mongoURL,
