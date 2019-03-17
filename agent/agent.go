@@ -65,6 +65,19 @@ func JSON2Bson(in []byte) (out []byte, err error) {
 
 // Handle http endpoint
 func (a *Agent) Handle(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		w.Write([]byte(`
+
+      _                 _                              _
+__  _| |__   __ _ _   _(_)       __ _  __ _  ___ _ __ | |_
+\ \/ / '_ \ / _' | | | | |_____ / _' |/ _' |/ _ \ '_ \| __|
+ >  <| | | | (_| | |_| | |_____| (_| | (_| |  __/ | | | |_
+/_/\_\_| |_|\__, |\__,_|_|      \__,_|\__, |\___|_| |_|\__|
+            |___/                     |___/
+
+			`))
+		return
+	}
 	if r.Method != "POST" {
 		w.WriteHeader(400)
 		return
