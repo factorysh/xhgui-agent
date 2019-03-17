@@ -14,6 +14,9 @@ services:
 
   agent:
     image: xhgui-agent
+    environment:
+      LISTEN: 0.0.0.0:8002
+      MONGODB_URL: mongodb://xhprof:example@mongodb/xhprof
     depends_on:
       - mongodb
 
