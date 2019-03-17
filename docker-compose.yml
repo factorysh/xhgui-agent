@@ -19,6 +19,8 @@ services:
       MONGODB_URL: mongodb://xhprof:example@mongodb/xhprof
     depends_on:
       - mongodb
+    ports:
+      - 8002:8002
 
   xhgui:
     image: xhgui-nginx
