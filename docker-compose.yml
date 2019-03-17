@@ -1,0 +1,43 @@
+version: "3"
+services:
+  web:
+    image: bearstech/nginx
+    depends_on:
+      - php
+    ports:
+      - 8000:8000
+
+  php:
+    image: bearstech/php:7.2
+    depends_on:
+      - agent
+
+  agent:
+    image: xhgui-agent
+    depends_on:
+      - mongodb
+
+  xhgui:
+    image: xhgui-nginx
+    ports:
+      - 8001:8000
+    depends_on:
+      - xhgui-php
+
+  xhgui-php:
+    image: xhgui-php
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_PASSWORD: example
+    volumes:
+      - ./data/cache:/var/www/cache
+
+  mongodb:
+    image: mongo:3.2
+    environment:
+      MONGO_INITDB_DATABASE: xhprof
+      MONGO_INITDB_ROOT_USERNAME: xhprof
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./data/mongo:/data/db

@@ -2,3 +2,4 @@ vendor/
 venv/
 *.bson
 bin/
+data
