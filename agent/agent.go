@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -72,7 +73,8 @@ func JSON2Bson(in []byte) (out []byte, err error) {
 // Handle http endpoint
 func (a *Agent) Handle(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		w.Write([]byte(`
+		w.Header().Set("content-type", "text/plain")
+		fmt.Fprint(w, `
 
       _                 _                              _
 __  _| |__   __ _ _   _(_)       __ _  __ _  ___ _ __ | |_
@@ -81,23 +83,27 @@ __  _| |__   __ _ _   _(_)       __ _  __ _  ___ _ __ | |_
 /_/\_\_| |_|\__, |\__,_|_|      \__,_|\__, |\___|_| |_|\__|
             |___/                     |___/
 
-			`))
+			`)
 		return
 	}
+	w.Header().Set("content-type", "application/json")
 	if r.Method != "POST" {
-		w.WriteHeader(400)
+		w.WriteHeader(405)
+		fmt.Fprintf(w, `{"error":"Bad method: %s"}`, r.Method)
 		return
 	}
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(500)
+		fmt.Fprint(w, `{"error":"Can't read body"}`)
 	}
 	out, err := JSON2Bson(body)
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(500)
+		fmt.Fprint(w, `{"error":"Can't parse JSON"}`)
 	}
 	a.queue.Push(out)
-	w.Write(out)
+	fmt.Fprint(w, "{}")
 }
