@@ -9,6 +9,7 @@ services:
 
   php:
     image: bearstech/php:7.2
+    user: www-data
     depends_on:
       - agent
 
