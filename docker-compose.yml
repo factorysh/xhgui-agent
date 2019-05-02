@@ -25,7 +25,7 @@ services:
     image: xhgui-agent
     environment:
       LISTEN: 0.0.0.0:8002
-      MONGODB_URL: mongodb://xhprof:example@mongodb/xhprof
+      MONGODB_URL: mongodb://xhprof:example@mongodb/xhprof?authSource=admin
     depends_on:
       - mongodb
     ports:
@@ -48,7 +48,7 @@ services:
       - ./data/cache:/var/www/cache
 
   mongodb:
-    image: mongo:3.2
+    image: mongo:3.6
     environment:
       MONGO_INITDB_DATABASE: xhprof
       MONGO_INITDB_ROOT_USERNAME: xhprof
