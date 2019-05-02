@@ -6,12 +6,20 @@ services:
       - php
     ports:
       - 8000:8000
+    volumes:
+      - ./contribs/nginx.conf:/etc/nginx/sites-enabled/default
+      - ./contribs/web:/var/www/web
 
   php:
-    image: bearstech/php:7.2
+    image: php-with-xhgui-agent
     user: www-data
+    environment:
+      XHGUI_UPLOAD_URI: http://agent:8002
+      XHGUI_PROFILING: "100"
     depends_on:
       - agent
+    volumes:
+      - ./contribs/web:/var/www/web
 
   agent:
     image: xhgui-agent
