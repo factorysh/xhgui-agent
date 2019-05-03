@@ -1,0 +1,5 @@
+{
+    "require": {
+        "perftools/xhgui-collector": "^1.7"
+    }
+}

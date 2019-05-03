@@ -1,13 +1,17 @@
-build: src/xhgui-collector
+build: vendor/xhgui-collector
 	docker build \
 		-t php-with-xhgui-agent \
 		.
 
-src/xhgui-collector: src
-	cd src && git clone https://github.com/perftools/xhgui-collector
-
-src:
-	mkdir -p src
+vendor/xhgui-collector:
+	docker run -ti \
+		--rm \
+		-u `id -u` \
+		-v `pwd`:/toto \
+		-v ~/.composer:/.composer \
+		-w /toto \
+		bearstech/php-composer:7.2 \
+		composer install
 
 clean:
-	rm -rf src
+	rm -rf vendor

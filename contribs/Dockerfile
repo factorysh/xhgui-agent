@@ -6,5 +6,6 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY src/xhgui-collector/ /opt/xhgui-collector/
+COPY vendor/ /opt/xhgui-collector/
 COPY www.conf /opt/www.conf.tpl
+COPY config.php /opt/xhgui-collector/config/

@@ -1,0 +1,109 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "076acf5bfa2ed3fc56912f6e1aa0427a",
+    "packages": [
+        {
+            "name": "paragonie/random_compat",
+            "version": "v9.99.99",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "perftools/xhgui-collector",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perftools/xhgui-collector.git",
+                "reference": "1388249f88803448f446a78498709fb791ce5175"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perftools/xhgui-collector/zipball/1388249f88803448f446a78498709fb791ce5175",
+                "reference": "1388249f88803448f446a78498709fb791ce5175",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/random_compat": ">=2.0",
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "Mongo PHP Adapter is required for PHP >7 (when using ext-mongodb)",
+                "ext-curl": "You need to install the curl extension to upload saved files",
+                "ext-mongo": "Mongo is needed to store profiler results for PHP < 7.",
+                "ext-mongodb": "Mongo is needed to store profiler results for PHP > 7.",
+                "ext-pdo": "You need to install the pdo extension to store profiler results to a relational database",
+                "ext-uprofiler": "You need to install either xhprof or uprofiler to use XHGui.",
+                "ext-xhprof": "You need to install either xhprof or uprofiler to use XHGui."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Xhgui_": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lauri Piisang",
+                    "email": "lauri.piisang@eesti.ee"
+                }
+            ],
+            "description": "Library for collecting and storing XHProf results for later use by XHGUI.",
+            "time": "2019-04-24T16:41:36+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
