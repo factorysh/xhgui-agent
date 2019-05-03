@@ -26,10 +26,11 @@ type Agent struct {
 func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 	p, err := url.Parse(mongoURL)
 	if err != nil {
+		log.WithField("url", mongoURL).WithError(err).Error()
 		return nil, err
 	}
 	log.WithFields(log.Fields{
-		"mongodb_host":     p.Hostname,
+		"mongodb_host":     p.Hostname(),
 		"mongodb_user":     p.User,
 		"mongodb_database": p.Path,
 		"queue_size":       queueSize,
@@ -37,7 +38,7 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 	agent := &Agent{
 		queue:    fixedqueue.New(queueSize),
 		mongoURL: mongoURL,
-		database: p.Path,
+		database: p.Path[1:],
 	}
 	go func() {
 		var err error
@@ -52,8 +53,11 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 			}
 			doc := agent.queue.BlPop()
 			err = agent.mongodb.DB(agent.database).C("plop").Insert(doc)
+			l := log.WithField("document", doc)
 			if err != nil {
-				log.WithError(err).WithField("document", doc).Error("Insert error")
+				l.WithError(err).Error("Insert error")
+			} else {
+				l.Info("Inserting document")
 			}
 		}
 	}()
@@ -105,5 +109,6 @@ __  _| |__   __ _ _   _(_)       __ _  __ _  ___ _ __ | |_
 		fmt.Fprint(w, `{"error":"Can't parse JSON"}`)
 	}
 	a.queue.Push(out)
+	log.Info("Http handles one document")
 	fmt.Fprint(w, "{}")
 }
