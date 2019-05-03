@@ -3,4 +3,4 @@ venv/
 *.bson
 bin/
 data
-contribs/vendor
+contribs/server/src

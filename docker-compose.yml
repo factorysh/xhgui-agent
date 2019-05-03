@@ -7,8 +7,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./contribs/nginx.conf:/etc/nginx/sites-enabled/default
-      - ./contribs/web:/var/www/web
+      - ./contribs/client/nginx.conf:/etc/nginx/sites-enabled/default
+      - ./contribs/client/web:/var/www/web
 
   php:
     image: php-with-xhgui-agent
@@ -19,7 +19,7 @@ services:
     depends_on:
       - agent
     volumes:
-      - ./contribs/web:/var/www/web
+      - ./contribs/client/web:/var/www/web
 
   agent:
     image: xhgui-agent
@@ -44,8 +44,9 @@ services:
       - mongodb
     environment:
       MONGO_PASSWORD: example
+      MONGO_HOST: mongodb
     volumes:
-      - ./data/cache:/var/www/cache
+      - ./data/cache:/opt/xhgui/cache
 
   mongodb:
     image: mongo:3.6

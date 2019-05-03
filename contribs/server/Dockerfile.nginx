@@ -1,0 +1,4 @@
+FROM bearstech/nginx
+
+COPY src/xhgui/webroot /var/www/web
+COPY nginx.conf /etc/nginx/sites-enabled/default

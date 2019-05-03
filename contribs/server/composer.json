@@ -1,0 +1,6 @@
+{
+    "require": {
+        "perftools/xhgui": "^0.8"
+    }
+}
+
