@@ -8,4 +8,4 @@ RUN apt-get update \
 
 COPY vendor/ /opt/xhgui-collector/
 COPY www.conf /opt/www.conf.tpl
-COPY config.php /opt/xhgui-collector/config/
+COPY config.php /opt/xhgui-collector/perftools/xhgui-collector/config/config.php
