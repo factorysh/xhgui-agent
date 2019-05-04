@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -10,7 +11,6 @@ import (
 
 	"github.com/factorysh/xhgui-agent/fixedqueue"
 	"github.com/globalsign/mgo"
-	"github.com/globalsign/mgo/bson"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -52,7 +52,7 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 				}
 			}
 			doc := agent.queue.BlPop()
-			err = agent.mongodb.DB(agent.database).C("plop").Insert(doc)
+			err = agent.mongodb.DB(agent.database).C("xhprof").Insert(doc)
 			l := log.WithField("document", doc)
 			if err != nil {
 				l.WithError(err).Error("Insert error")
@@ -62,16 +62,6 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 		}
 	}()
 	return agent, nil
-}
-
-// JSON2Bson convert a JSON document to a BSON document
-func JSON2Bson(in []byte) (out []byte, err error) {
-	var trace interface{}
-	err = bson.UnmarshalJSON(in, &trace)
-	if err != nil {
-		return nil, err
-	}
-	return bson.Marshal(trace)
 }
 
 // Handle http endpoint
@@ -102,13 +92,15 @@ __  _| |__   __ _ _   _(_)       __ _  __ _  ___ _ __ | |_
 		w.WriteHeader(500)
 		fmt.Fprint(w, `{"error":"Can't read body"}`)
 	}
-	out, err := JSON2Bson(body)
+	var msg map[string]interface{}
+
+	err = json.Unmarshal(body, &msg)
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(500)
 		fmt.Fprint(w, `{"error":"Can't parse JSON"}`)
 	}
-	a.queue.Push(out)
+	a.queue.Push(&msg)
 	log.Info("Http handles one document")
 	fmt.Fprint(w, "{}")
 }
