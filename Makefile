@@ -26,7 +26,7 @@ test: vendor
 clean:
 	rm -rf bin data
 
-demo:
+demo: | docker-build docker-image
 	cd contribs/server && make
 	cd contribs/client && make
 	docker-compose up -d

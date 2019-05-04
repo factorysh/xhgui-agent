@@ -1,12 +1,11 @@
-XHGui agent
-===========
+# XHGui agent
 
-Status
-------
+Send the guts of your PHP page, in HTTP, watch the result with XHGUI.
 
-Ugly unfinished POC
+## Try it
 
-Licence
--------
+    make demo
+
+## Licence
 
 AGPL v3 ©2018 Mathieu Lecarme
