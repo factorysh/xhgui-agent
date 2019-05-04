@@ -9,6 +9,10 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/davecgh/go-spew/spew"
+
+	"github.com/globalsign/mgo/bson"
+
 	"github.com/factorysh/xhgui-agent/fixedqueue"
 	"github.com/globalsign/mgo"
 	log "github.com/sirupsen/logrus"
@@ -51,9 +55,15 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 					continue
 				}
 			}
-			doc := agent.queue.BlPop()
-			err = agent.mongodb.DB(agent.database).C("xhprof").Insert(doc)
+			doc_ := agent.queue.BlPop()
+			doc, ok := doc_.(*map[string]interface{})
+			if !ok {
+				spew.Dump(doc_)
+				continue
+			}
+			(*doc)["_id"] = bson.NewObjectId()
 			l := log.WithField("document", doc)
+			err = agent.mongodb.DB(agent.database).C("xhprof").Insert(doc)
 			if err != nil {
 				l.WithError(err).Error("Insert error")
 			} else {
