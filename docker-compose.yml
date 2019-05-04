@@ -15,7 +15,8 @@ services:
     user: www-data
     environment:
       XHGUI_UPLOAD_URI: http://agent:8002
-      XHGUI_PROFILING: "100"
+      XHGUI_PROFILING: "1"
+      XHGUI_PROFILING_RATIO: "100"
     depends_on:
       - agent
     volumes:
