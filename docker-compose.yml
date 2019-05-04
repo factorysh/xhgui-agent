@@ -44,8 +44,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      MONGO_PASSWORD: example
-      MONGO_HOST: mongodb
+      XHGUI_MONGO_HOST: mongodb://xhprof:example@mongodb:27017/
     volumes:
       - ./data/cache:/opt/xhgui/cache
 
