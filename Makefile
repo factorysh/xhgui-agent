@@ -22,12 +22,13 @@ docker-image:
 
 test: vendor
 	go test -v github.com/factorysh/xhgui-agent/fixedqueue
-	go test -v github.com/factorysh/xhgui-agent/agent
 
 clean:
 	rm -rf bin data
 
 demo:
+	cd contribs/server && make
+	cd contribs/client && make
 	docker-compose up -d
 
 down:
