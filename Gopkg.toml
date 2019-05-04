@@ -10,3 +10,7 @@
 [[constraint]]
   branch = "master"
   name = "github.com/globalsign/mgo"
+
+[[constraint]]
+  name = "github.com/onrik/logrus"
+  version = "0.2.2"

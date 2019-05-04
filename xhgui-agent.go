@@ -6,10 +6,13 @@ import (
 	"os"
 
 	"github.com/factorysh/xhgui-agent/agent"
+	"github.com/onrik/logrus/filename"
 	log "github.com/sirupsen/logrus"
 )
 
 func main() {
+	filenameHook := filename.NewHook()
+	log.AddHook(filenameHook)
 	listen := os.Getenv("LISTEN")
 	if listen == "" {
 		listen = "127.0.0.1:8002"
