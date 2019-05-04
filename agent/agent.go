@@ -63,7 +63,7 @@ func New(ctx context.Context, queueSize int, mongoURL string) (*Agent, error) {
 			}
 			(*doc)["_id"] = bson.NewObjectId()
 			l := log.WithField("document", doc)
-			err = agent.mongodb.DB(agent.database).C("xhprof").Insert(doc)
+			err = agent.mongodb.DB(agent.database).C("results").Insert(doc)
 			if err != nil {
 				l.WithError(err).Error("Insert error")
 			} else {
