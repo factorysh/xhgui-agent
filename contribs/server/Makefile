@@ -3,7 +3,7 @@ build: build-php build-nginx
 src:
 	mkdir -p src
 
-src/xhgui: src
+src/xhgui/README.md: src
 	cd src && git clone https://github.com/perftools/xhgui.git
 
 build-php-tool:
@@ -12,7 +12,7 @@ build-php-tool:
 		-f Dockerfile.php-tool \
 		.
 
-src/xhgui/vendor: src/xhgui build-php-tool
+src/xhgui/vendor: src/xhgui/README.md build-php-tool
 	docker run -ti \
 		--rm \
 		-u `id -u` \
