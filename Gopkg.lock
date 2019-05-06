@@ -75,6 +75,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/davecgh/go-spew/spew",
     "github.com/globalsign/mgo",
     "github.com/globalsign/mgo/bson",
     "github.com/onrik/logrus/filename",
