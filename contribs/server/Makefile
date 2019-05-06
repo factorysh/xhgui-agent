@@ -16,7 +16,7 @@ src/xhgui/vendor: src/xhgui build-php-tool
 	docker run -ti \
 		--rm \
 		-u `id -u` \
-		-v `pwd`/src/xhgui:/toto \
+		-v $(CURDIR)/src/xhgui:/toto \
 		-v ~/.composer:/.composer \
 		-w /toto \
 		xhgui-php-tool \
@@ -35,5 +35,5 @@ build-nginx: src/xhgui/vendor
 		.
 
 clean:
-	rm -rf vendor
+	rm -rf vendor src
 

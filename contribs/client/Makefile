@@ -7,7 +7,7 @@ vendor/xhgui-collector:
 	docker run -ti \
 		--rm \
 		-u `id -u` \
-		-v `pwd`:/toto \
+		-v $(CURDIR):/toto \
 		-v ~/.composer:/.composer \
 		-w /toto \
 		bearstech/php-composer:7.2 \

@@ -25,10 +25,12 @@ test: vendor
 
 clean:
 	rm -rf bin data
+	make -C contribs/server clean
+	make -C contribs/client clean
 
 demo: | docker-build docker-image
-	cd contribs/server && make
-	cd contribs/client && make
+	make -C contribs/server
+	make -C contribs/client
 	docker-compose up -d
 
 down:
