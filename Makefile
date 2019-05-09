@@ -10,7 +10,7 @@ vendor:
 pull:
 	docker pull bearstech/golang-dep
 
-docker-build:
+docker-build: bin
 	docker run --rm \
 		-v `pwd`:/go/src/github.com/factorysh/xhgui-agent \
 		-w /go/src/github.com/factorysh/xhgui-agent \
