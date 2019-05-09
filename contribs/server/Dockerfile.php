@@ -1,5 +1,8 @@
 FROM bearstech/php:7.2
 
+ARG uid=1001
+RUN useradd xhgui_app --uid ${uid} --shell /bin/bash --home /var/www
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     php-mongodb \
@@ -12,4 +15,4 @@ COPY config.php /opt/xhgui/config/
 RUN mkdir -p /var/www \
         && ln -s /opt/xhgui/webroot /var/www/web
 
-USER www-data
+USER xhgui_app
