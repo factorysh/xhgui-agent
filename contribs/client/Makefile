@@ -4,7 +4,7 @@ build: vendor/xhgui-collector
 		.
 
 vendor/xhgui-collector:
-	docker run -ti \
+	docker run \
 		--rm \
 		-u `id -u` \
 		-v $(CURDIR):/toto \

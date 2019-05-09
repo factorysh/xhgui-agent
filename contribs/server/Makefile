@@ -13,7 +13,7 @@ build-php-tool:
 		.
 
 src/xhgui/vendor: src/xhgui/README.md build-php-tool
-	docker run -ti \
+	docker run \
 		--rm \
 		-u `id -u` \
 		-v $(CURDIR)/src/xhgui:/toto \
