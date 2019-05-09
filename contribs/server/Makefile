@@ -4,7 +4,7 @@ src:
 	mkdir -p src
 
 src/xhgui/README.md: src
-	cd src && git clone https://github.com/perftools/xhgui.git
+	git submodule update --init
 
 build-php-tool:
 	docker build \
@@ -35,5 +35,5 @@ build-nginx: src/xhgui/vendor
 		.
 
 clean:
-	rm -rf vendor src
+	rm -rf vendor src/xhgui
 
