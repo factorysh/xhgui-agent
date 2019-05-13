@@ -26,7 +26,7 @@ services:
     image: xhgui-agent
     environment:
       LISTEN: 0.0.0.0:8002
-      MONGODB_URL: mongodb://xhprof:example@mongodb/xhprof?authSource=admin
+      MONGODB_URL: mongodb://xhgui:example@mongodb/xhgui?authSource=admin
     depends_on:
       - mongodb
     ports:
@@ -44,15 +44,16 @@ services:
     depends_on:
       - mongodb
     environment:
-      XHGUI_MONGO_HOST: mongodb://xhprof:example@mongodb:27017/
+      XHGUI_MONGO_HOST: mongodb://xhgui:example@mongodb:27017/xhgui?authSource=admin
+      XHGUI_MONGO_DATABASE: xhgui
     volumes:
       - ./data/cache:/opt/xhgui/cache
 
   mongodb:
     image: mongo:3.6
     environment:
-      MONGO_INITDB_DATABASE: xhprof
-      MONGO_INITDB_ROOT_USERNAME: xhprof
+      MONGO_INITDB_DATABASE: xhgui
+      MONGO_INITDB_ROOT_USERNAME: xhgui
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - ./data/mongo:/data/db
