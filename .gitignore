@@ -4,3 +4,4 @@ venv/
 bin/
 data
 .cache
+.vendor-new
