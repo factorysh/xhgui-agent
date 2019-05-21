@@ -15,7 +15,7 @@ build-php-tool:
 src/xhgui/vendor: src/xhgui/README.md build-php-tool
 	docker run \
 		--rm \
-		-u `id -u` \
+		-u root \
 		-v $(CURDIR)/src/xhgui:/toto \
 		-v ~/.composer:/.composer \
 		-w /toto \

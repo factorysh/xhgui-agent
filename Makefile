@@ -11,7 +11,7 @@ pull:
 docker-build: bin
 	mkdir -p .cache
 	docker run --rm \
-		-u `id -u` \
+		-u root \
 		-v `pwd`/.cache:/.cache \
 		-v `pwd`:/go/src/github.com/factorysh/xhgui-agent \
 		-w /go/src/github.com/factorysh/xhgui-agent \

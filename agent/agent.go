@@ -11,10 +11,10 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"github.com/globalsign/mgo/bson"
-
 	"github.com/factorysh/xhgui-agent/fixedqueue"
+	"github.com/factorysh/xhgui-agent/metrics"
 	"github.com/globalsign/mgo"
+	"github.com/globalsign/mgo/bson"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -95,8 +95,13 @@ __  _| |__   __ _ _   _(_)       __ _  __ _  ___ _ __ | |_
 		w.WriteHeader(405)
 		fmt.Fprintf(w, `{"error":"Bad method: %s"}`, r.Method)
 		return
+	} else {
+		// Increment AgentConnexion metric
+		metrics.AgentConnexion.Inc()
 	}
 	body, err := ioutil.ReadAll(r.Body)
+	// Add BodySize metric
+	metrics.BodySize.Observe(float64(len(body)))
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(500)
