@@ -6,7 +6,7 @@ build: vendor/xhgui-collector
 vendor/xhgui-collector:
 	docker run \
 		--rm \
-		-u root \
+		-u `id -u` \
 		-v $(CURDIR):/toto \
 		-v ~/.composer:/.composer \
 		-w /toto \
