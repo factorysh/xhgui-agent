@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/factorysh/xhgui-agent/agent"
+	"github.com/factorysh/xhgui-agent/metrics"
 	"github.com/onrik/logrus/filename"
 	log "github.com/sirupsen/logrus"
 )
@@ -29,5 +30,6 @@ func main() {
 	}
 	http.HandleFunc("/", a.Handle)
 
+	go log.Fatal(metrics.ListenAndServe(listen))
 	log.Fatal(http.ListenAndServe(listen, nil))
 }
