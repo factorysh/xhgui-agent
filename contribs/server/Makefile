@@ -4,7 +4,7 @@ src:
 	mkdir -p src
 
 src/xhgui/README.md: src
-	git submodule update --init
+	cd ../../ && git submodule init && git submodule update
 
 build-php-tool:
 	docker build \
