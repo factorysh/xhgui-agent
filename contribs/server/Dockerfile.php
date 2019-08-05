@@ -17,5 +17,5 @@ RUN mkdir -p /var/www \
 
 RUN mkdir -p /opt/xhgui/cache \
     && chown xhgui_app /opt/xhgui/cache \
-    && chown 700 /opt/xhgui/cache
+    && chmod 700 /opt/xhgui/cache
 USER xhgui_app
