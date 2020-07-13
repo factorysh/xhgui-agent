@@ -1,7 +1,5 @@
-vendor/
 venv/
 *.bson
 bin/
 data
 .cache
-.vendor-new
