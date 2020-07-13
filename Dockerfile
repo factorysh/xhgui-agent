@@ -1,4 +1,4 @@
-FROM bearstech/debian
+FROM bearstech/debian:10
 
 COPY bin/xhgui-agent /usr/local/bin/xhgui-agent
 
